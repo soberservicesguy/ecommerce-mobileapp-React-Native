@@ -814,7 +814,7 @@ class AppNavigation extends Component {
 		return (
 			<NavigationContainer>
 				<RootStack.Navigator headerMode='none'>
-					{this.props.userToken !== null && this.props.isSignedIn !== false 
+					{this.props.isSignedIn === false || this.props.phone_number === null 
 						? 
 							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
 						: 

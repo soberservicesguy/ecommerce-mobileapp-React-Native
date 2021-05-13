@@ -186,7 +186,7 @@ class CreateProduct extends Component {
 
 					<TouchableOpacity
 						activeOpacity={0.2}
-						style={styles.createProductButton}
+						style={styles.bottomButton}
 						onPress={ () => {
 
 							let setResponseInCurrentProduct = (arg) => this.props.set_current_product(arg)
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
 	},
 
 	// create product button
-	createProductButton:{
+	bottomButton:{
 		marginTop: windowHeight * 0.03,
 		width: windowWidth,
 		height: windowHeight * 0.08,

@@ -82,7 +82,7 @@ class SignUpScreen extends Component {
 			if (response.data.success === true){
 
 			// REDIRECT TO LOGIN
-				this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
+				this.props.navigation.navigate('Login')
 
 			} else {
 				console.log('user sign up failed, try again')
@@ -95,21 +95,8 @@ class SignUpScreen extends Component {
 
 	render() {
 
-		if ( this.state.switchScreen !== false ){
-
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Login', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-
-		} else {
-
-			return(
+		return(
+			<KeyboardAwareScrollView>
 				<View style={styles.screenContainer}>
 
 					<View style={styles.buttonContainer}>
@@ -193,6 +180,7 @@ class SignUpScreen extends Component {
 							style={styles.textinput}
 							placeholder="Set password"
 							placeholderTextColor = {utils.lightGrey}
+							secureTextEntry={true}
 							// maxLength=10
 							// caretHidden=true
 							// multiline=true
@@ -268,8 +256,8 @@ class SignUpScreen extends Component {
 					</TouchableOpacity>
 				
 				</View>
-			);
-		}
+			</KeyboardAwareScrollView>
+		);
 	}
 }
 

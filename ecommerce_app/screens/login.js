@@ -65,6 +65,11 @@ class LoginScreen extends Component {
 
 	login_and_get_jwt_token_and_privileges(){
 
+		let setIsSignedInCallback = () => this.props.set_is_signed_in( true )
+		let setPhoneNumberCallback = () => this.props.set_phone_number( this.state.phone_number )
+		let verifyPrivilegesCallback = () => verify_privilege(this, response.data.privileges)
+
+		console.log('MAKING REQUEST')
 		axios.post(utils.baseUrl + '/users/login', 
 			{
 				phone_number:this.state.phone_number, 
@@ -76,10 +81,10 @@ class LoginScreen extends Component {
 
 				// console.log(response.data)
 				axios.defaults.headers.common['Authorization'] = response.data.token				
-				this.props.set_is_signed_in( true )
-				this.props.set_phone_number( this.state.phone_number )
 
-				verify_privilege(this, response.data.privileges)
+				setIsSignedInCallback()
+				setPhoneNumberCallback()
+				verifyPrivilegesCallback()
 
 			} else {
 				console.log('couldnt login')
@@ -87,105 +92,107 @@ class LoginScreen extends Component {
 
 		})
 		.catch(function (error) {
-			// console.log(error);
+			console.log(error);
 		});	
 	}
 
 	render() {
 		return(
+			<KeyboardAwareScrollView>
+				<View style={styles.screenContainer}>
+					
+					<View style={styles.buttonContainer}>
+						<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.roundButton}>
+							<Text style={styles.innerText}>
+								LOGIN WITH FACEBOOK
+							</Text>
+						</TouchableOpacity>
+					</View>
 
-			<View style={styles.screenContainer}>
 				
-				<View style={styles.buttonContainer}>
-					<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.roundButton}>
-						<Text style={styles.innerText}>
-							LOGIN WITH FACEBOOK
+					<View style={styles.orContainer}>
+						<View style={styles.leftBar}>
+						</View>
+
+						<View style={styles.orTextChild}>
+							<Text style={styles.orText}>
+								OR
+							</Text>
+						</View>
+
+						<View style={styles.rightBar}>
+						</View>
+					</View>
+
+					<Text style={styles.headingOverInputs}>
+						PHONE NUMBER
+					</Text>
+
+					<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your phone number"
+							placeholderTextColor = {utils.lightGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) =>  this.setState(prev => ({...prev, phone_number: value})) }
+						/>
+					</View>
+
+					<Text style={styles.headingOverInputs}>
+						PASSWORD
+					</Text>
+
+					<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your password"
+							placeholderTextColor = {utils.lightGrey}
+							secureTextEntry={true}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) =>  this.setState(prev => ({...prev, password: value})) }
+						/>
+					</View>
+						
+
+					<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.navigate('SignUp')} style={styles.buttonWithoutBG}>
+						<Text style={styles.forGotPasswordText}>
+							Create Account
 						</Text>
 					</TouchableOpacity>
-				</View>
 
-			
-				<View style={styles.orContainer}>
-					<View style={styles.leftBar}>
-					</View>
 
-					<View style={styles.orTextChild}>
-						<Text style={styles.orText}>
-							OR
-						</Text>
-					</View>
+					<TouchableOpacity activeOpacity={0.2} onPress={() => this.login_and_get_jwt_token_and_privileges()} style={styles.bottomButton}>
+						<Icon
+						  // raised
+						  name={utils.righAeroIcon}
+						  type='font-awesome'
+						  // iconStyle='Outlined'
+						  color='#ffffff'
+						  size={40}
+						/>
+					</TouchableOpacity>
 
-					<View style={styles.rightBar}>
-					</View>
-				</View>
 
-				<Text style={styles.headingOverInputs}>
-					PHONE NUMBER
-				</Text>
-
-				<View style={styles.textinputContainer}>
-					<TextInput
-						style={styles.textinput}
-						placeholder="Type your phone number"
-						placeholderTextColor = {utils.lightGrey}
-						// maxLength=10
-						// caretHidden=true
-						// multiline=true
-						// numberOfLines=3
-						// onChangeText={ () => null }
-						// value='dummy'
-						// autoFocus=true
-						onChangeText={ (value) =>  this.setState(prev => ({...prev, phone_number: value})) }
+	{/*				<Button 
+						title={'LOGOUT'}
+						style={styles.lowerButton} activeOpacity={0.2}
+						onPress={ () => this.logout_and_remove_jwt_token() }
 					/>
+	*/}
 				</View>
-
-				<Text style={styles.headingOverInputs}>
-					PASSWORD
-				</Text>
-
-				<View style={styles.textinputContainer}>
-					<TextInput
-						style={styles.textinput}
-						placeholder="Type your password"
-						placeholderTextColor = {utils.lightGrey}
-						// maxLength=10
-						// caretHidden=true
-						// multiline=true
-						// numberOfLines=3
-						// onChangeText={ () => null }
-						// value='dummy'
-						// autoFocus=true
-						onChangeText={ (value) =>  this.setState(prev => ({...prev, password: value})) }
-					/>
-				</View>
-					
-
-				<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.buttonWithoutBG}>
-					<Text style={styles.forGotPasswordText}>
-						Forgot your password ?
-					</Text>
-				</TouchableOpacity>
-
-
-				<TouchableOpacity activeOpacity={0.2} onPress={() => this.login_and_get_jwt_token_and_privileges()} style={styles.bottomButton}>
-					<Icon
-					  // raised
-					  name={utils.righAeroIcon}
-					  type='font-awesome'
-					  // iconStyle='Outlined'
-					  color='#ffffff'
-					  size={40}
-					/>
-				</TouchableOpacity>
-
-
-{/*				<Button 
-					title={'LOGOUT'}
-					style={styles.lowerButton} activeOpacity={0.2}
-					onPress={ () => this.logout_and_remove_jwt_token() }
-				/>
-*/}
-			</View>
+			</KeyboardAwareScrollView>
 		);
 
 	}
