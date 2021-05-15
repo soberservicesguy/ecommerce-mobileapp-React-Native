@@ -1,5 +1,5 @@
 const utils = {
-	baseUrl:'http://localhost:3000/',
+	baseUrl:'https://ecommerce-app-dot-portfolio-apps-311617.uc.r.appspot.com',
 	urlForProducts:'',
 
 	image:require('./images/samosa.jpg'),

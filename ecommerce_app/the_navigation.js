@@ -53,6 +53,265 @@ import {
 } from "./redux_stuff/connected_components";
 
 
+
+
+
+
+
+
+const Tabs = createBottomTabNavigator();
+
+function BottomTabs() {
+	return (
+		<Tabs.Navigator
+			tabBar={() => 
+				<View>
+				</View>
+			} // tabBar closed
+			// backBehavior= 'initialRoute / order / history / none'
+
+			// tabBarOptions={{
+			//   activeTintColor:'',
+			//   inactiveTintColor:'',
+			//   activeBackgroundColor:'',
+			//   inactiveBackgroundColor:'',
+				
+			//   showLabel: true / false,
+			//   showIcon: true / false,
+
+			//   labelPosition: 'beside-icon / below-icon'  
+			//   tabStyle: // style object
+			//   labelStyle: // style object
+			//   style: // style object
+
+			// }}
+
+			// screenOptions={{
+			//     title:'',
+			//     tabBarVisible: true /false,
+			//     tabBarIcon: , // function returning tab bar icon
+			//     tabBarLabel: , // function returning label in tab bar
+			//     tabBarButton: , // function returning tabbar button
+			//   }}
+		>
+
+			<Tabs.Screen name="BulkBlogpostUpload" component={ ConnectedBulkBlogpostUpload }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Tabs.Screen name="BulkCarouselUpload" component={ ConnectedBulkCarouselUpload }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Tabs.Screen name="BulkProductUpload" component={ ConnectedBulkProductUpload }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+			{/*<Tabs.Screen 
+				name="Entire Stack" 
+				component={SignInStack}
+				// options={{
+				// 	title:'',
+				// 	drawerLabel: , // function returning label
+				// 	drawerIcon: ,// function returning icon
+				// }} 
+			/>*/}
+
+
+		</Tabs.Navigator>
+	)
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Drawer = createDrawerNavigator();
+
+// component returning drawer with screens
+function TheDrawer() {
+	return (
+		<Drawer.Navigator
+			headerMode='none'
+			// initialRouteName= ''
+			// backBehavior= 'initialRoute / order / history / none'
+			// drawerPosition= 'left / right'
+			// drawerType='front / back / slide / permanent'
+			hideStatusBar={false}
+			drawerStyle={{ // style object for drawer
+				// backgroundColor: '#eee',
+				backgroundColor: 'black',
+				width: 150
+			}}
+
+			drawerContent={() => {
+				return(
+					<ScrollView contentContainerStyle={{
+						flex:1,
+						alignItems:'center',
+						justifyContent: 'space-between', 
+					}}>
+						{['Products', 'BlogPost', 'Cart',
+						// 'Video'
+						].map((option) => {
+
+							let screen_name = option
+							option = option.toLowerCase()
+							option = option.charAt(0).toUpperCase() + option.slice(1);
+
+							return (
+								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
+									<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+										{option}
+									</Text>
+								</TouchableOpacity>
+							)
+						})}
+					</ScrollView>
+				)
+			}}
+		>
+
+			<Stack.Screen name="Products" component={ ConnectedProductScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Products',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Blogposts',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Cart" component={ ConnectedCartScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Cart',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="BulkUploadTabs" component={ BottomTabs }
+				options={{ 
+					headerShown:false,
+				}}
+			/>
+
+
+		
+{/*			<Stack.Screen name="Video" component={ ConnectedCarouselScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>*/}
+		</Drawer.Navigator>
+	);
+}
+
+
+
+
+
 const Stack = createStackNavigator();
 
 function SignInStack({navigation}) {
@@ -98,6 +357,14 @@ function InnerStack({navigation}) {
 		<Stack.Navigator
 			// headerMode='none'
 		>
+
+			<Stack.Screen name="Content_Drawer" component={TheDrawer}
+				options={{ 
+					headerShown:false,
+				}}
+			/>
+
+
 			<Stack.Screen name="Order" component={ ConnectedOrderScreen }
 				options={{ 
 					headerShown:true,
@@ -116,190 +383,6 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Cart" component={ ConnectedCartScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Cart',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-
-			<Stack.Screen name="Individual-Product" component={ConnectedIndividualProduct}
-				options={{ 
-					headerShown:false,
-					title: 'Individual Product',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-
-			<Stack.Screen name="Products" component={ ConnectedProductScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Products',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-
-			<Stack.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
-				options={{ 
-					headerShown:true,
-					title: 'BlogPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-		
-			<Stack.Screen name="Video" component={ ConnectedCarouselScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Video',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-		
-
-
-			<Stack.Screen name="IndividualCart" component={ ConnectedIndividualCartItem }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="IndividualOrder" component={ ConnectedIndividualOrder }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="BulkBlogpostUpload" component={ ConnectedBulkBlogpostUpload }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="BulkCarouselUpload" component={ ConnectedBulkCarouselUpload }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="BulkProductUpload" component={ ConnectedBulkProductUpload }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 
 			<Stack.Screen name="Individual_BlogPost" component={ConnectedIndividualBlogPost}
 				options={{ 
@@ -337,8 +420,69 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-		
-			<Stack.Screen name="Fashion_Blogs" component={ConnectedBlogPostScreen}
+			<Stack.Screen name="Individual_Product" component={ConnectedIndividualProduct}
+				options={{ 
+					headerShown:false,
+					title: 'Individual Product',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="IndividualCart" component={ ConnectedIndividualCartItem }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="IndividualOrder" component={ ConnectedIndividualOrder }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+		{/* added so that user could be pushed to login if token expired or unauthorized in backend*/}
+			<Stack.Screen name="SignInStack" component={SignInStack}
+				options={{ 
+					headerShown:false,
+				}}
+			/>
+
+
+{/*			<Stack.Screen name="Fashion_Blogs" component={ConnectedBlogPostScreen}
 				payload_for_filter = {{category: 'Fashion'}}
 				options={{ 
 					headerShown:true,
@@ -678,137 +822,33 @@ function InnerStack({navigation}) {
 					</TouchableOpacity>	),
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
-			/>
+			/>*/}
 
 		</Stack.Navigator>
 	);
 }
 
-const Tabs = createBottomTabNavigator();
-function BottomTabs() {
-	return (
-		<Tabs.Navigator
-			tabBar={() => 
-				<View>
-				</View>
-			} // tabBar closed
-			// backBehavior= 'initialRoute / order / history / none'
-
-			// tabBarOptions={{
-			//   activeTintColor:'',
-			//   inactiveTintColor:'',
-			//   activeBackgroundColor:'',
-			//   inactiveBackgroundColor:'',
-				
-			//   showLabel: true / false,
-			//   showIcon: true / false,
-
-			//   labelPosition: 'beside-icon / below-icon'  
-			//   tabStyle: // style object
-			//   labelStyle: // style object
-			//   style: // style object
-
-			// }}
-
-			// screenOptions={{
-			//     title:'',
-			//     tabBarVisible: true /false,
-			//     tabBarIcon: , // function returning tab bar icon
-			//     tabBarLabel: , // function returning label in tab bar
-			//     tabBarButton: , // function returning tabbar button
-			//   }}
-		>
-			<Tabs.Screen 
-				name="Entire Stack" 
-				component={SignInStack}
-				// options={{
-				// 	title:'',
-				// 	drawerLabel: , // function returning label
-				// 	drawerIcon: ,// function returning icon
-				// }} 
-			/>
-
-		</Tabs.Navigator>
-	)
-} 
 
 
 
 
-const Drawer = createDrawerNavigator();
 
-// component returning drawer with screens
-function TheDrawer() {
-	return (
-		<Drawer.Navigator
-			headerMode='none'
-			// initialRouteName= ''
-			// backBehavior= 'initialRoute / order / history / none'
-			// drawerPosition= 'left / right'
-			// drawerType='front / back / slide / permanent'
-			hideStatusBar={false}
-			drawerStyle={{ // style object
-				backgroundColor: '#000000'
-			}}
 
-			drawerContent={()=>
-				<ScrollView>
-					<View>
-					</View>
-				</ScrollView>
-			} // function returning element			
-		>
-			<Drawer.Screen name="Feeds" component={BottomTabs} />
-		</Drawer.Navigator>
-	);
-}
+
+
+
+
+
 
 
 const RootStack = createStackNavigator();
 
 
 class AppNavigation extends Component {
+
 	constructor(props) {
-			super(props);
+		super(props);
 	}
-
-	componentDidUpdate(prevProps, prevState, snapshot){
-		// // Typical usage (don't forget to compare states) BUT STATE IS THROUGH props IN REDUX
-		// if (this.props.contacts !== prevProps.contacts) {
-		// 	show_all_contacts_and_set_in_state()
-		// 	console.log("--------LOG--------")
-		// 	console.log( this.props.contacts )
-		// }
-
-		// if ( this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true){
-			// console.log('FROM this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true')
-			// console.log("Connection type", state.type);
-			// console.log("Is connected?", this.props.is_internet_connected);
-		// }
-
-		// if ( this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false){
-			// console.log('FROM this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false')
-			// console.log("Connection type", state.type);
-			// console.log("Is connected?", this.props.is_internet_connected);
-		// }
-	}
-
-	componentDidMount(){
-
-		// this.unsubscribe = NetInfo.addEventListener(state => {
-			// this.props.set_internet_connection( state.isConnected )
-			// this.setState(prev => ({...prev, is_internet_connected: state.isConnected }));
-			// console.log(state.isConnected)
-			// console.log('FROM componentDidMOunt')
-			// console.log("Is connected?", this.props.is_internet_connected);			
-		// });
-
-	}
-
-	componentWillUnmount(){
-		// this.unsubscribe()
-	}
-
 
 	render() {
 		return (
@@ -827,24 +867,3 @@ class AppNavigation extends Component {
 }
 
 export default AppNavigation;
-
-
-// class AppNavigation extends Component {
-// 	constructor(props) {
-// 			super(props);
-// 	}
-// 	render() {
-// 		return (
-// 			<NavigationContainer>
-// 				<RootStack.Navigator headerMode='none'>
-// 					{this.props.userToken !== null 
-// 						? 
-// 							( <RootStack.Screen name="SignIn" component={BottomTabs}/> )
-// 						: 
-// 							( <RootStack.Screen name="Drawer" component={TheDrawer} /> )
-// 					}		
-// 				</RootStack.Navigator>
-// 			</NavigationContainer>
-// 		);
-// 	}
-// }

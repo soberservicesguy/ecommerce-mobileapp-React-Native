@@ -98,7 +98,7 @@ class LoginScreen extends Component {
 
 	render() {
 		return(
-			<KeyboardAwareScrollView>
+			<KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
 				<View style={styles.screenContainer}>
 					
 					<View style={styles.buttonContainer}>
