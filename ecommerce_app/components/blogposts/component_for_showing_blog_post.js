@@ -27,7 +27,7 @@ class ComponentForShowingBlogPost extends Component {
 		super(props);
 // STATE	
 		this.state = {
-
+			image_src:null,
 		}
 
 	}
@@ -37,51 +37,67 @@ class ComponentForShowingBlogPost extends Component {
 
 	}
 
+	getImage(){
+
+		// this.setState({ image_src: null })
+		let image_object_id = this.props.dataPayloadFromParent.image_thumbnail_filepath
+
+		axios.get(`${utils.baseUrl}/blogpostings/get-image`, 
+			{
+				params: {
+					image_object_id: image_object_id
+				}
+			}
+		)
+	    .then(async (response) => {
+	    	if (response.data.success){
+		    	this.setState({ image_src: "data:image/jpeg;base64," + response.data.image})
+	    	}
+
+		});
+
+
+	}
+
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+
+
+		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
+			console.log('getting image')
+			this.getImage()
+
+		} else if (this.props.getIndividualImage === true){
+			this.getImage()
+		}
+
+
+	}
+
 	render() {
 
 		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
 		var base64Image = "data:image/jpeg;base64," + data.image_thumbnail_filepath
 
+
 		return (
 			<View style={styles.outerContainer}>
+				<Text style={styles.title}>
+					{ data.title }
+				</Text>
 
 				<View style={styles.imageContainer}>
-					<Image source={base64Image} alt="" 
+					<Image source={{uri: this.state.image_src}} alt="" 
 						style={{
 							width:200, 
-							height:400, 
-							resizeMode: "contain"
+							height:200, 
+							resizeMode: "stretch"
 						}}
 					/>
 				</View>
 
 				<Text>
-					{ data.endpoint }
-				</Text>
-
-				<Text>
-					{ data.title }
-				</Text>
-				<Text>
-					{ data.first_para }
-				</Text>
-				<Text>
-					{ data.initial_tags }
-				</Text>
-				<Text>
-					{ data.second_para }
-				</Text>
-				<Text>
-					{ data.third_para }
-				</Text>
-				<Text>
-					{ data.fourth_para }
-				</Text>
-				<Text>
-					{ data.all_tags }
-				</Text>
-				<Text>
-					{ data.timestamp_of_uploading }
+					Tags: { data.all_tags }
 				</Text>
 			</View>
 		);
@@ -94,6 +110,17 @@ ComponentForShowingBlogPost.defaultProps = {
 
 const styles = StyleSheet.create({
 	outerContainer: {
+		paddingLeft:10,
+		paddingRight:10,
+		marginBottom:30,
+	},
+	title:{
+		fontWeight:'bold',
+		fontSize:20,
+		textAlign:'center',
+	},
+	imageContainer:{
+
 	},
 });
 

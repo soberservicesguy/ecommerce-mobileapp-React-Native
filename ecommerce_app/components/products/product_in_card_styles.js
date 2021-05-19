@@ -21,7 +21,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-class ProductInCardStyle extends Component {
+class ProductInCardStyles extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -42,11 +42,16 @@ class ProductInCardStyle extends Component {
 		var base64Image = "data:image/jpeg;base64," + data.image_thumbnail_filepath
 
 		return (
-			<View style={styles.outerContainer}>
+			<TouchableOpacity activeOpacity={0.2} style={styles.outerContainer} onPress={() => {
+				this.props.set_current_product(data)
+				this.props.navigation.navigate('Individual_Product', {image_thumbnail_filepath: this.state.image_src})
+			}}>
+
 				<View style={styles.imageContainer}>
 					<Image 
 						// source={{uri: base64Image}} 
-						source={utils.firstScreenBG} 
+						source={{uri: this.props.image_src}}
+						// source={utils.firstScreenBG} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -72,12 +77,12 @@ class ProductInCardStyle extends Component {
 				</Text>
 
 				
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
 	
-ProductInCardStyle.defaultProps = {
+ProductInCardStyles.defaultProps = {
 };
 
 
@@ -91,8 +96,8 @@ const styles = StyleSheet.create({
 		// paddingBottom:10,
 		// paddingTop:10,
 		marginTop: windowHeight * 0.01,
-		borderTopRightRadius:20,	
-		borderTopLeftRadius:20,
+		borderTopRightRadius:10,	
+		borderTopLeftRadius:10,
 		backgroundColor:'white',
 		marginLeft:10,
 		marginRight:10,
@@ -100,8 +105,8 @@ const styles = StyleSheet.create({
 
 // image
 	imageContainer:{
-		borderTopRightRadius:20,
-		borderTopLeftRadius:20,
+		borderTopRightRadius:10,
+		borderTopLeftRadius:10,
 		// borderWidth:1,
 
 		// marginTop: windowHeight * 0.05, // or 30  gap
@@ -113,8 +118,8 @@ const styles = StyleSheet.create({
 		// backgroundColor: utils.lightGreen,
 	},
 	imageStyle:{
-		borderTopRightRadius:20,
-		borderTopLeftRadius:20,
+		borderTopRightRadius:10,
+		borderTopLeftRadius:10,
 		// borderWidth:1,
 
 		// resizeMode: "contain / center / cover / stretch / repeat",
@@ -141,4 +146,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ProductInCardStyle
+export default ProductInCardStyles

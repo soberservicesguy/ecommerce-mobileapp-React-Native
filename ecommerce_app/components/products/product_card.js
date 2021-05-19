@@ -22,14 +22,17 @@ import {
 	ProductInBulletStyle,
 	ProductInCardStyle,
 	// ComponentForShowingProduct,
-	CategoryInCardStyle,
-	CategoryInBulletStyle,
+	// CategoryInCardStyle,
+	// CategoryInBulletStyle,
 } from "."
 
 import utils from "../../utilities";
 
-// import {
-// } from "../../redux_stuff/connected_components"
+import {
+	ConnectedProductInCard,
+	ConnectedCategoryInBulletStyle,
+	// ConnectedProductInCardStyles,
+} from "../../redux_stuff/connected_components"
 
 
 class ProductCard extends Component {
@@ -38,7 +41,44 @@ class ProductCard extends Component {
 // STATE	
 		this.state = {
 			expanded: false,
+			image_src: null,
 		}	
+
+	}
+
+	getImage(){
+
+		// this.setState({ image_src: null })
+		let image_object_id = this.props.dataPayloadFromParent.image_thumbnail_filepath
+
+		axios.get(`${utils.baseUrl}/blogpostings/get-image`, 
+			{
+				params: {
+					image_object_id: image_object_id
+				}
+			}
+		)
+	    .then(async (response) => {
+	    	if (response.data.success){
+		    	this.setState({ image_src: "data:image/jpeg;base64," + response.data.image})
+	    	}
+
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+
+
+		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
+			console.log('getting image')
+			this.getImage()
+
+		}
 
 	}
 
@@ -50,28 +90,41 @@ class ProductCard extends Component {
 
 	render() {
 
+		// console.log({isCategoryInstead:this.props.isCategoryInstead, isCard:this.props.isCard})
+
 	  	let componentToShow
 		if (this.props.isCategoryInstead && this.props.isCard){ 
 			componentToShow = (
-				<CategoryInCardStyle
-					dataPayloadFromParent={this.props.dataPayloadFromParent}
-				/>
+					<ConnectedProductInCard
+						navigation={this.props.navigation}
+						image_src={this.state.image_src}
+						dataPayloadFromParent={this.props.dataPayloadFromParent}
+					/>
 			)
 		} else if (this.props.isCategoryInstead && this.props.isCard === false){
 			componentToShow = (
-				<CategoryInBulletStyle
-					dataPayloadFromParent={this.props.dataPayloadFromParent}
-				/>
+				<TouchableOpacity activeOpacity={0.2} style={styles.outerContainer} onPress={() => {
+					this.props.navigation.push('Content_Drawer', {screen:'Products', params:{product_category_name: this.props.dataPayloadFromParent.product_category_name}})
+				}}>
+					<ConnectedCategoryInBulletStyle
+						navigation={this.props.navigation}
+						dataPayloadFromParent={this.props.dataPayloadFromParent}
+					/>
+				</TouchableOpacity>
 			)
 		} else if (this.props.isCategoryInstead === false && this.props.isCard){
+
 			componentToShow = (
-				<ProductInCardStyle
+				<ConnectedProductInCard
+					navigation={this.props.navigation}
+					image_src={this.state.image_src}
 					dataPayloadFromParent={this.props.dataPayloadFromParent}
 				/>
 			)
 		} else {
 			componentToShow = (
 				<ProductInBulletStyle
+					navigation={this.props.navigation}
 					dataPayloadFromParent={this.props.dataPayloadFromParent}
 				/>
 			)

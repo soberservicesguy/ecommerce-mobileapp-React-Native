@@ -98,7 +98,7 @@ class LoginScreen extends Component {
 
 	render() {
 		return(
-			<KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+			<KeyboardAwareScrollView>
 				<View style={styles.screenContainer}>
 					
 					<View style={styles.buttonContainer}>
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
 
 // bottom button
 	bottomButton:{
-		height: windowHeight * 0.1,
+		height: windowHeight * 0.11,
 		width: '100%',
 		backgroundColor: utils.lightGreen,
 		justifyContent: 'center',

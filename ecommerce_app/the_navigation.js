@@ -1,14 +1,8 @@
-
 import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-
 
 import 'react-native-gesture-handler';
 import {
@@ -50,8 +44,8 @@ import {
 	ConnectedBulkBlogpostUpload,
 	ConnectedBulkCarouselUpload,
 	ConnectedBulkProductUpload,
+	ConnectedBulkProductCategoriesUpload,
 } from "./redux_stuff/connected_components";
-
 
 
 
@@ -61,11 +55,37 @@ import {
 
 const Tabs = createBottomTabNavigator();
 
-function BottomTabs() {
+function BottomTabs({navigation}) {
 	return (
 		<Tabs.Navigator
+			options={{ title: 'My home' }}
+			// initialRouteName= 'FriendScreen'
 			tabBar={() => 
-				<View>
+				<View style={{
+					display:'flex',
+					flexDirection: 'row',
+					alignItems:'center',
+					justifyContent: 'space-around',
+					height:50,
+					backgroundColor: '#000000',
+				}}>
+					{[
+						{option_name:'Bulk Blogposts', screen_name:"BulkBlogpostUpload"}, 
+						{option_name:'Bulk Products',  screen_name:"BulkProductUpload"}, 
+						{option_name:'Bulk Carousels',  screen_name:"BulkCarouselUpload"}, 
+					].map((item, index) => {
+
+						return (
+							<TouchableOpacity activeOpacity={0.2} style={{alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 2) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => {
+								navigation.navigate(item.screen_name)
+								// navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
+							}}>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:16, textAlign:'center'}}>
+									{item.option_name}
+								</Text>
+							</TouchableOpacity>
+						)
+					})}
 				</View>
 			} // tabBar closed
 			// backBehavior= 'initialRoute / order / history / none'
@@ -98,7 +118,7 @@ function BottomTabs() {
 			<Tabs.Screen name="BulkBlogpostUpload" component={ ConnectedBulkBlogpostUpload }
 				options={{ 
 					headerShown:true,
-					title: 'Image',
+					title: 'Bulk Blogposts Upload',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -116,7 +136,7 @@ function BottomTabs() {
 			<Tabs.Screen name="BulkCarouselUpload" component={ ConnectedBulkCarouselUpload }
 				options={{ 
 					headerShown:true,
-					title: 'Image',
+					title: 'Bulk Carousels Upload',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -134,7 +154,25 @@ function BottomTabs() {
 			<Tabs.Screen name="BulkProductUpload" component={ ConnectedBulkProductUpload }
 				options={{ 
 					headerShown:true,
-					title: 'Image',
+					title: 'Bulk Products Upload',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Tabs.Screen name="BulkProductCategories" component={ ConnectedBulkProductCategoriesUpload }
+				options={{ 
+					headerShown:true,
+					title: 'Bulk Product Categories',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -182,7 +220,7 @@ function BottomTabs() {
 const Drawer = createDrawerNavigator();
 
 // component returning drawer with screens
-function TheDrawer() {
+function TheDrawer({navigation}) {
 	return (
 		<Drawer.Navigator
 			headerMode='none'
@@ -204,13 +242,17 @@ function TheDrawer() {
 						alignItems:'center',
 						justifyContent: 'space-between', 
 					}}>
-						{['Products', 'BlogPost', 'Cart',
+						{['Products', 'BlogPost', 'Cart', 'BulkUploadTabs'
 						// 'Video'
 						].map((option) => {
 
 							let screen_name = option
 							option = option.toLowerCase()
 							option = option.charAt(0).toUpperCase() + option.slice(1);
+
+							if (screen_name === 'BulkUploadTabs'){
+								option = 'Bulk Upload'
+							}
 
 							return (
 								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
@@ -225,7 +267,7 @@ function TheDrawer() {
 			}}
 		>
 
-			<Stack.Screen name="Products" component={ ConnectedProductScreen }
+			<Drawer.Screen name="Products" component={ ConnectedProductScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Products',
@@ -243,7 +285,7 @@ function TheDrawer() {
 				}}
 			/>
 
-			<Stack.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
+			<Drawer.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Blogposts',
@@ -261,7 +303,7 @@ function TheDrawer() {
 				}}
 			/>
 
-			<Stack.Screen name="Cart" component={ ConnectedCartScreen }
+			<Drawer.Screen name="Cart" component={ ConnectedCartScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Cart',
@@ -279,7 +321,7 @@ function TheDrawer() {
 				}}
 			/>
 
-			<Stack.Screen name="BulkUploadTabs" component={ BottomTabs }
+			<Drawer.Screen name="BulkUploadTabs" component={ BottomTabs }
 				options={{ 
 					headerShown:false,
 				}}
@@ -287,7 +329,7 @@ function TheDrawer() {
 
 
 		
-{/*			<Stack.Screen name="Video" component={ ConnectedCarouselScreen }
+			{/*<Stack.Screen name="Video" component={ ConnectedCarouselScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Videos',
@@ -314,7 +356,7 @@ function TheDrawer() {
 
 const Stack = createStackNavigator();
 
-function SignInStack({navigation}) {
+function SignInStackComponent({navigation}) {
 	return (
 		<Stack.Navigator
 			// headerMode='none'
@@ -351,21 +393,22 @@ function SignInStack({navigation}) {
 	);
 }
 
+const InnerStack = createStackNavigator();
 
-function InnerStack({navigation}) {
+function InnerStackComponent({navigation}) {
 	return (
-		<Stack.Navigator
+		<InnerStack.Navigator
 			// headerMode='none'
 		>
 
-			<Stack.Screen name="Content_Drawer" component={TheDrawer}
+			<InnerStack.Screen name="Content_Drawer" component={TheDrawer}
 				options={{ 
 					headerShown:false,
 				}}
 			/>
 
 
-			<Stack.Screen name="Order" component={ ConnectedOrderScreen }
+			<InnerStack.Screen name="Order" component={ ConnectedOrderScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Checkout',
@@ -384,7 +427,7 @@ function InnerStack({navigation}) {
 			/>
 
 
-			<Stack.Screen name="Individual_BlogPost" component={ConnectedIndividualBlogPost}
+			<InnerStack.Screen name="Individual_BlogPost" component={ConnectedIndividualBlogPost}
 				options={{ 
 					headerShown:true,
 					title: 'Individual BlogPost',
@@ -402,7 +445,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 		
-			<Stack.Screen name="Individual_Video" component={ConnectedIndividualCarousel}
+			<InnerStack.Screen name="Individual_Video" component={ConnectedIndividualCarousel}
 				options={{ 
 					headerShown:true,
 					title: 'Individual Video',
@@ -420,7 +463,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Individual_Product" component={ConnectedIndividualProduct}
+			<InnerStack.Screen name="Individual_Product" component={ConnectedIndividualProduct}
 				options={{ 
 					headerShown:false,
 					title: 'Individual Product',
@@ -438,7 +481,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="IndividualCart" component={ ConnectedIndividualCartItem }
+			<InnerStack.Screen name="IndividualCart" component={ ConnectedIndividualCartItem }
 				options={{ 
 					headerShown:true,
 					title: 'Image',
@@ -456,7 +499,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="IndividualOrder" component={ ConnectedIndividualOrder }
+			<InnerStack.Screen name="IndividualOrder" component={ ConnectedIndividualOrder }
 				options={{ 
 					headerShown:true,
 					title: 'Image',
@@ -475,7 +518,7 @@ function InnerStack({navigation}) {
 			/>
 
 		{/* added so that user could be pushed to login if token expired or unauthorized in backend*/}
-			<Stack.Screen name="SignInStack" component={SignInStack}
+			<InnerStack.Screen name="SignInStack" component={SignInStackComponent}
 				options={{ 
 					headerShown:false,
 				}}
@@ -824,7 +867,7 @@ function InnerStack({navigation}) {
 				}}
 			/>*/}
 
-		</Stack.Navigator>
+		</InnerStack.Navigator>
 	);
 }
 
@@ -856,9 +899,9 @@ class AppNavigation extends Component {
 				<RootStack.Navigator headerMode='none'>
 					{this.props.isSignedIn === false || this.props.phone_number === null 
 						? 
-							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
+							( <RootStack.Screen name="SignInStack" component={SignInStackComponent}/> )
 						: 
-							( <RootStack.Screen name="InnerStack" component={InnerStack} /> )
+							( <RootStack.Screen name="InnerStack" component={InnerStackComponent} /> )
 					}		
 				</RootStack.Navigator>
 			</NavigationContainer>

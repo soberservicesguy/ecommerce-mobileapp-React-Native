@@ -29,8 +29,10 @@ import {
 	CreateProduct,
 	ComponentForShowingProduct,
 	ProductCard,
-	// ProductInBulletStyle,
-	// ProductInCardStyle,
+	ProductInBulletStyle,
+	// ProductInCardStyles,
+	ProductInCardStyles,
+	CategoryInBulletStyle,
 } from "../components/products"
 
 import {
@@ -53,9 +55,21 @@ import {
 	BulkBlogpostUpload,
 	BulkCarouselUpload,
 	BulkProductUpload,
+	BulkProductCategoriesUpload,
 } from "../components/"
 
-export const ConnectedAppNavigation = connect(
+
+// export const ConnectedProductInCardStyles = connect(
+// 	mapStateToProps,
+// 	mapDispatchToProps
+// )(ProductInCardStyles);
+
+export const ConnectedBulkProductCategoriesUpload = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(BulkProductCategoriesUpload);
+
+export const ConnectedNavigation = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(AppNavigation);
@@ -224,9 +238,19 @@ export const ConnectedBulkProductUpload = connect(
 // 	mapDispatchToProps
 // )(ProductInBulletStyle);
 
-// export const ConnectedProductInCardStyle = connect(
+// export const ConnectedProductInCardStyles = connect(
 // 	mapStateToProps,
 // 	mapDispatchToProps
-// )(ProductInCardStyle);
+// )(ProductInCardStyles);
 
 
+export const ConnectedProductInCard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ProductInCardStyles);
+
+
+export const ConnectedCategoryInBulletStyle = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CategoryInBulletStyle);

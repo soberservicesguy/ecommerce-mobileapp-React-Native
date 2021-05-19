@@ -4,6 +4,7 @@ import {
   View, 
   Text,
   TouchableHighlight,
+  Image,
 } from "react-native";
 import PropTypes from 'prop-types';
 

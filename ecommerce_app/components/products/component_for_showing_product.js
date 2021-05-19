@@ -20,7 +20,7 @@ import { Consumer } from "../../screens/product"
 
 import {
 	ConnectedProductInBulletStyle,
-	ConnectedProductInCardStyle,
+	ConnectedProductInCard,
 } from "../../redux_stuff/connected_components"
 
 import { Dimensions } from 'react-native';
@@ -42,18 +42,26 @@ class ComponentForShowingProduct extends Component {
 
 	}
 
+
+
 	render() {
 
 		return (
-			<View>
+			<TouchableOpacity activeOpacity={0.2} style={styles.outerContainer} onPress={() => {
+				this.props.set_current_product(data)
+				this.props.navigation.navigate('Individual_Product', {image_thumbnail_filepath: this.state.image_src})
+			}}>
 				{ this.props.isProductShapeCard === true ? 
-					<ConnectedProductInCardStyle
+					<ConnectedProductInCard
 						dataPayloadFromParent={this.props.dataPayloadFromParent}
-					/> : 
+						image_src={this.state.image_src}
+					/> 
+				: 
 					<ConnectedProductInBulletStyle
 						dataPayloadFromParent={this.props.dataPayloadFromParent}
-					/> }
-			</View>
+					/> 
+				}
+			</TouchableOpacity>
 		);
 	}
 }

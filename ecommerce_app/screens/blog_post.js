@@ -42,9 +42,7 @@ class BlogPostScreen extends Component {
 		}	
 	}
 
-// COMPONENT DID MOUNT
-	componentDidMount() {
-
+	setUpScreen(){
 		let redirectToSignIn = () => this.props.navigation.navigate('SignInStack', { screen: 'Login' })
 		let setIsSignedInCallback = () => this.props.set_is_signed_in( false )
 		let setPhoneNumberCallback = () => this.props.set_phone_number( null )
@@ -84,15 +82,35 @@ class BlogPostScreen extends Component {
 
 
 	}
-	get_10_more_items() {
-		axios.get(utils.baseUrl + `/blogpostings/blogposts-list-next-10-with-children`)
-		.then((response) => {
-			this.props.set_fetched_10_more_blogpost(response.data)
-		})
-		.catch((error) => {
-			console.log(error);
-		})		
+
+	componentWillUnmount() {
+		this._unsubscribeFocus();
+		this._unsubscribeBlur();
 	}
+
+	componentDidMount() {
+		this._unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+			// below will be executed when user enters this screen
+			console.log('screen_payload')
+			console.log(this.state.screen_payload)
+
+			this.setUpScreen()
+			// const payload_from_previous_screen = this.props.navigation
+			// let { id } = payload_from_previous_screen
+		});
+
+		this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+			// below will be executed when user leaves this screen
+			console.log('I AM UNMOUNTED')
+			console.log('I AM UNMOUNTED')
+			console.log('I AM UNMOUNTED')
+
+			// const payload_from_previous_screen = this.props.navigation
+			// let { id } = payload_from_previous_screen
+		});
+
+	}
+
 
 // RENDER METHOD
 	render() {
@@ -108,8 +126,8 @@ class BlogPostScreen extends Component {
 				<SafeAreaView>
 					<ScrollView contentContainerStyle={styles.screenContainer}>
 			  	  		<FlatList
-			  				style={{flexDirection: 'column', flexWrap : "wrap"}}
-			  				numColumns={1}
+			  				style={{flexDirection: 'column',}}
+			  				numColumns={2}
 			  	  			data={total_blogposts}
 			  				renderItem={
 			  					({ item }, index) => (

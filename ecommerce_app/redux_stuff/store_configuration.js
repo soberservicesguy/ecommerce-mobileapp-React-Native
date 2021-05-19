@@ -1,13 +1,13 @@
 
 import { persistStore, persistReducer } from 'redux-persist' 
-// import storage from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage'
 
-import {createStore, applyMiddleware} from "redux";
 // import createSagaMiddleware from "redux-saga";
 import { connect } from "react-redux";
 import { combineReducers } from 'redux'; 
-import AsyncStorage from '@react-native-community/async-storage';
 
+import {createStore, applyMiddleware} from "redux";
+import AsyncStorage from '@react-native-community/async-storage';
 // REMOVE
 
 removeValue = async (key) => {
@@ -65,6 +65,7 @@ export const mapStateToProps = state => {
 	current_carousel: state.carousels.currentCarousel,
 
 	total_products: state.products.totalProduct,
+	total_categories: state.products.totalCategories,
 	current_product: state.products.currentProduct,
 
 	total_orders: state.orders.totalOrder,
@@ -79,6 +80,7 @@ export const mapStateToProps = state => {
 	isloggedin: state.users.isloggedin,
 	total_blogposts: state.blogposts.totalBlogPost,
 	current_blogpost: state.blogposts.currentBlogPost,
+
 
 
 	complete_cart: state.cart_content.entireCart,
@@ -112,6 +114,8 @@ export const mapDispatchToProps = dispatch => {
 		set_current_carousel: (current_carousel) => dispatch( { type: "SET_CURRENT_CAROUSEL", current_carousel:current_carousel } ),
 		set_fetched_carousels: (carousel_list) => dispatch( { type: "SET_FETCHED_CAROUSEL", carousel_list: carousel_list } ),
 		set_fetched_10_more_carousel: (carousel_list) => dispatch( { type: "SET_FETCHED_10_MORE_CAROUSEL", carousel_list: carousel_list } ),
+
+		set_product_categories: (category_list) => dispatch( { type: "SET_PRODUCT_CATEGORIES", category_list:category_list } ),
 
 		set_current_product: (current_product) => dispatch( { type: "SET_CURRENT_PRODUCT", current_product:current_product } ),
 		set_fetched_products: (product_list) => dispatch( { type: "SET_FETCHED_PRODUCT", product_list: product_list } ),
@@ -165,6 +169,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
+// export const store = createStore(rootReducer)
 export const store = createStore(persistedReducer
 	// , applyMiddleware(sagaMiddleWare)
 );

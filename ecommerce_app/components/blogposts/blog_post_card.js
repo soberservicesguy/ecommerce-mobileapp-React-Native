@@ -39,30 +39,18 @@ class BlogPostCard extends Component {
 	}
 
 	render() {
+		let data = this.props.dataPayloadFromParent
 
 		return (
-		  	<View>
-
-		  		<View>
-					{/* first the parent / card component */}
-			  		<ComponentForShowingBlogPost
-						dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			  		/>
-		  		</View>
-
-				<View>
-					{/* 2nd show individual summary of childs */}
-				</View>
-
-				<View>
-					{/* 3rd show individual button for showing childs */}
-				</View>
-
-				<View>
-					{/* 4th create individual child options like comment / like */}
-				</View>
-
-		  	</View>
+			<TouchableOpacity activeOpacity={0.2} style={styles.outerContainer} onPress={() => {
+				this.props.set_current_blogpost(data)
+				this.props.navigation.navigate('Individual_BlogPost')
+			}}>
+		  		<ComponentForShowingBlogPost
+		  			getIndividualImage={this.props.getIndividualImage}
+					dataPayloadFromParent = { this.props.dataPayloadFromParent }
+		  		/>
+	  		</TouchableOpacity>
 		);
 	}
 }

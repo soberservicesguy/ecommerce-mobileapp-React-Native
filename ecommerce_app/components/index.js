@@ -4,3 +4,5 @@ export {default as BulkProductUpload} from "./bulk_product_upload";
 
 export {default as MyCarouselFlatListBased} from "./carousel_based_on_flatlist"
 export {default as AvailableSizesAndColors} from "./available_size_and_colors"
+
+export {default as BulkProductCategoriesUpload} from  "./bulk_product_categories_upload"
