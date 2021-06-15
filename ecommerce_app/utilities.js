@@ -1,18 +1,20 @@
 const utils = {
-	baseUrl:'https://ecommerce-app-dot-portfolio-apps-311617.uc.r.appspot.com',
+	baseUrl:'https://ecommerce-mern-stack-web.herokuapp.com',
 	urlForProducts:'',
 
 	image:require('./images/samosa.jpg'),
 
 // login screen
 	// BG Image
-	firstScreenBG: require('./images/samosa.jpg'),
+	firstScreenBG: require('./images/first_screen.jpg'),
+	secondScreenBG: require('./images/second_screen.jpg'),
+
 	// COLORS
 	lightGrey: "#bbbdc0",
 	darkBlue: '#1e5186',
 	lightGreen: '#acce4c',
 	// ICON
-	righAeroIcon:'heartbeat',
+	righAeroIcon:'arrow-right',
 
 // signin screen
 	// COLORS
