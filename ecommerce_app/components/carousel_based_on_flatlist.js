@@ -30,39 +30,43 @@ const bulletsData={
 const DATA=[
 	{
 		id:'1',
-		image:utils.image
+		image:utils.casualShirts
 	},
 	{
 		id:'2',
-		image:utils.image
+		image:utils.makeup
 	},
 	{
 		id:'3',
-		image:utils.image
+		image:utils.perfumes
 	},
 	{
 		id:'4',
-		image:utils.image
+		image:utils.shirts
 	},
 	{
 		id:'5',
-		image:utils.image
+		image:utils.shoes
 	},
 	{
 		id:'6',
-		image:utils.image
+		image:utils.sportShoes
 	},
 	{
 		id:'7',
-		image:utils.image
+		image:utils.sunglasses
 	},
 	{
 		id:'8',
-		image:utils.image
+		image:utils.watch
 	},
 	{
 		id:'9',
-		image:utils.image
+		image:utils.perfumes
+	},
+	{
+		id:'10',
+		image:utils.shirts
 	},
 ];
 

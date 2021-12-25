@@ -72,15 +72,16 @@ function BottomTabs({navigation}) {
 					{[
 						{option_name:'Bulk Blogposts', screen_name:"BulkBlogpostUpload"}, 
 						{option_name:'Bulk Products',  screen_name:"BulkProductUpload"}, 
+						{option_name:'Bulk Categories',  screen_name:"BulkProductCategories"}, 
 						{option_name:'Bulk Carousels',  screen_name:"BulkCarouselUpload"}, 
 					].map((item, index) => {
 
 						return (
-							<TouchableOpacity activeOpacity={0.2} style={{alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 2) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => {
+							<TouchableOpacity activeOpacity={0.2} style={{alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 3) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => {
 								navigation.navigate(item.screen_name)
 								// navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
 							}}>
-								<Text style={{color:'white', fontWeight:'bold', fontSize:16, textAlign:'center'}}>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:13, textAlign:'center'}}>
 									{item.option_name}
 								</Text>
 							</TouchableOpacity>

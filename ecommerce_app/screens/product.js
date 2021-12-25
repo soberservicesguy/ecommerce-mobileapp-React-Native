@@ -288,9 +288,9 @@ class ProductScreen extends Component {
 
 
 
-						<View style={{marginTop:50}}>
+						<View style={{marginTop:10}}>
 				  			<ConnectedCreateProduct
-								navigation={this.props.navigation}
+								navigation={ this.props.navigation }
 				  			/>
 				  		</View>
 

@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -15,6 +16,7 @@ const windowHeight = Dimensions.get('window').height;
 import axios from 'axios';
 
 import DocumentPicker from 'react-native-document-picker';
+import utils from "../utilities"
 
 class BulkProductCategoriesUpload extends Component {
 	constructor(props) {
@@ -68,7 +70,7 @@ class BulkProductCategoriesUpload extends Component {
 
 
 				<Button 
-					title={'Press To Create Bulk Products'}
+					title={'Press To Create Categories'}
 					style={styles.buttonWithoutBG}
 					onPress={ () => {
 
@@ -83,7 +85,7 @@ class BulkProductCategoriesUpload extends Component {
 						Array.from(this.state.image_main).forEach((file) => {
 							formData.append('product_category_images_upload', {uri: file.uri, type: file.type, name: file.name})
 						})
-						formData.append('excel_sheet_for_products', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
+						// formData.append('excel_sheet_for_products', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
 
 						axios.post(utils.baseUrl + '/uploads/bulk-upload-product-categories', formData)
 						.then(function (response) {
@@ -130,16 +132,14 @@ BulkProductCategoriesUpload.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	container: {
-	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
+	outerContainer:{
+		flexDirection: 'column',
+		alignItems:'center',
+		flex:1,
+		// display:'flex',
+		// flexDirection: 'column',
+		alignItems:'center',
+		justifyContent: 'space-around', 
 	},
 
 });

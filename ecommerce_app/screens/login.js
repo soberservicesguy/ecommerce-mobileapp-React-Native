@@ -28,6 +28,7 @@ import utils from "../utilities";
 
 import { verify_privilege } from "../handy_functions/"
 
+import FacebookLogin from "../services/facebook_sign_in_and_share/facebook_sign_in"
 
 class LoginScreen extends Component {
 	constructor(props) {
@@ -106,6 +107,7 @@ class LoginScreen extends Component {
 							<Text style={styles.innerText}>
 								LOGIN WITH FACEBOOK
 							</Text>
+							{/*<FacebookLogin/>*/}
 						</TouchableOpacity>
 					</View>
 

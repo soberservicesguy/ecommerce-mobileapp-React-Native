@@ -141,6 +141,33 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
+
+	missingDimensionStrategy 'react-native-camera', 'general'
+
     }
     splits {
         abi {
@@ -189,6 +216,12 @@ android {
 
 dependencies {
 
+	implementation "com.braintreepayments.api:braintree:3.+"
+	implementation "com.braintreepayments.api:data-collector:3.+"
+	implementation project(':react-native-paypal')
+
+
+
 	implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
 
@@ -201,6 +234,8 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    implementation "com.braintreepayments.api:braintree:3.14.1"
+    
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
