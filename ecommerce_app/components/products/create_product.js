@@ -50,6 +50,10 @@ class CreateProduct extends Component {
 		// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
 			<View style={styles.outerContainer}>
 
+				<Text style={{textAlign: 'center', fontSize: 15, fontWeight: 'bold', paddingVertical: 10,}}>
+					Product Upload Section
+				</Text>
+
 				<Button 
 					title={'Select Product image'}
 					onPress={async () => {

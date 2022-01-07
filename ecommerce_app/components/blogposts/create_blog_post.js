@@ -72,6 +72,9 @@ class CreateBlogPost extends Component {
 				<View style={styles.outerContainer}>
 
 					<View style={styles.textinputContainer}>
+						<Text style={{textAlign: 'center', fontSize: 15, fontWeight: 'bold', paddingVertical: 10,}}>
+							Blogpost Upload Section
+						</Text>
 
 						<Button 
 							title={'Blogpost image'}

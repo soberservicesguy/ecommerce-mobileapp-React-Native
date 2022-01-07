@@ -186,13 +186,6 @@ class LoginScreen extends Component {
 						/>
 					</TouchableOpacity>
 
-
-	{/*				<Button 
-						title={'LOGOUT'}
-						style={styles.lowerButton} activeOpacity={0.2}
-						onPress={ () => this.logout_and_remove_jwt_token() }
-					/>
-	*/}
 				</View>
 			</KeyboardAwareScrollView>
 		);
@@ -203,10 +196,10 @@ class LoginScreen extends Component {
 
 const styles = StyleSheet.create({
 	screenContainer:{
+		display:'flex',
+		flexDirection: 'column',
 		alignItems:'center',
 		flex:1,
-		// display:'flex',
-		// flexDirection: 'column',
 		alignItems:'center',
 		justifyContent: 'space-between', 
 		backgroundColor: '#ffffff',
@@ -305,6 +298,7 @@ const styles = StyleSheet.create({
 
 // bottom button
 	bottomButton:{
+		marginTop: 50,
 		height: windowHeight * 0.11,
 		width: '100%',
 		backgroundColor: utils.lightGreen,

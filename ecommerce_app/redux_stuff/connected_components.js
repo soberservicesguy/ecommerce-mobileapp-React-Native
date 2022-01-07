@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import {mapStateToProps, mapDispatchToProps} from "./store_configuration";
 
-import AppNavigation from '../the_navigation'
+import AppNavigation, { TheDrawer } from '../the_navigation'
 
 import {
 	LoginScreen,
@@ -59,10 +59,10 @@ import {
 } from "../components/"
 
 
-// export const ConnectedProductInCardStyles = connect(
-// 	mapStateToProps,
-// 	mapDispatchToProps
-// )(ProductInCardStyles);
+export const ConnectedTheDrawer = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(TheDrawer);
 
 export const ConnectedBulkProductCategoriesUpload = connect(
 	mapStateToProps,
