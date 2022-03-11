@@ -112,7 +112,7 @@ class BulkProductUpload extends Component {
 							formData.append('product_images_upload', {uri: file.uri, type: file.type, name: file.name})
 						})
 						formData.append('excel_sheet', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
-
+						console.log({url: utils.baseUrl + '/uploads/bulk-upload-products'})
 						axios.post(utils.baseUrl + '/uploads/bulk-upload-products', formData)
 						.then(function (response) {
 							console.log(response.data) // current blogpost screen data

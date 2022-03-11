@@ -93,8 +93,8 @@ class CreateProduct extends Component {
 							// multiline=true
 							// numberOfLines=3
 							// onChangeText={ () => null }
-							// value='dummy'
 							// autoFocus=true
+							value={this.state.title}
 							onChangeText={ (value) => this.setState( prev => ({...prev, title: value})) }
 						/>
 				  	</View>
@@ -109,8 +109,8 @@ class CreateProduct extends Component {
 							// multiline=true
 							// numberOfLines=3
 							// onChangeText={ () => null }
-							// value='dummy'
 							// autoFocus=true
+							value={this.state.category}
 							onChangeText={ (value) => this.setState( prev => ({...prev, category: value})) }
 						/>
 				  	</View>						
@@ -130,8 +130,8 @@ class CreateProduct extends Component {
 							// multiline=true
 							// numberOfLines=3
 							// onChangeText={ () => null }
-							// value='dummy'
 							// autoFocus=true
+							value={this.state.price}
 							onChangeText={ (value) => this.setState( prev => ({...prev, price: value})) }
 						/>
 				  	</View>
@@ -147,8 +147,8 @@ class CreateProduct extends Component {
 							// multiline=true
 							// numberOfLines=3
 							// onChangeText={ () => null }
-							// value='dummy'
 							// autoFocus=true
+							value={this.state.product_size}
 							onChangeText={ (value) => this.setState( prev => ({...prev, product_size: value})) }
 						/>
 				  	</View>
@@ -164,8 +164,8 @@ class CreateProduct extends Component {
 						// multiline=true
 						// numberOfLines=3
 						// onChangeText={ () => null }
-						// value='dummy'
 						// autoFocus=true
+						value={this.state.product_color}
 						onChangeText={ (value) => this.setState( prev => ({...prev, product_color: value})) }
 					/>
 			  	</View>
@@ -181,6 +181,14 @@ class CreateProduct extends Component {
 						let redirectToSignIn = () => this.props.navigation.navigate('SignInStack', { screen: 'Login' })
 						let setIsSignedInCallback = () => this.props.set_is_signed_in( false )
 						let setPhoneNumberCallback = () => this.props.set_phone_number( null )
+						let clearInput = () => this.setState({
+							title: '',
+							category: '',
+							price: '',
+							product_size: '',
+							product_color: '',
+							image_thumbnail_filepath: '',
+						})
 
 						const formData = new FormData()
 						formData.append('title', this.state.title)
@@ -192,7 +200,7 @@ class CreateProduct extends Component {
 
 						axios.post(utils.baseUrl + '/products/create-product-with-user', formData)
 						.then(function (response) {
-							console.log(response.data) // current product screen data
+							clearInput()
 					    	if (response.status === 401){
 								setIsSignedInCallback()
 								setPhoneNumberCallback()

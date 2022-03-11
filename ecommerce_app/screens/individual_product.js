@@ -162,35 +162,35 @@ class IndividualProduct extends Component {
 
 		const DATA=[
 			{
-				id:'1',
+				id:'0',
 				image:utils.casualShirts
 			},
 			{
-				id:'2',
+				id:'1',
 				image:utils.makeup
 			},
 			{
-				id:'3',
+				id:'2',
 				image:utils.perfumes
 			},
 			{
-				id:'4',
+				id:'3',
 				image:utils.shirts
 			},
 			{
-				id:'5',
+				id:'4',
 				image:utils.shoes
 			},
 			{
-				id:'6',
+				id:'5',
 				image:utils.sportShoes
 			},
 			{
-				id:'7',
+				id:'6',
 				image:utils.sunglasses
 			},
 			{
-				id:'8',
+				id:'7',
 				image:utils.watch
 			},
 		];

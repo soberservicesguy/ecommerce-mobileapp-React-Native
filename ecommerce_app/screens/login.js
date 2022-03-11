@@ -181,7 +181,7 @@ class LoginScreen extends Component {
 						  name={utils.righAeroIcon}
 						  type='font-awesome'
 						  // iconStyle='Outlined'
-						  color='#ffffff'
+						  color='#eee'
 						  size={40}
 						/>
 					</TouchableOpacity>
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
 
 // bottom button
 	bottomButton:{
-		marginTop: 50,
+		marginTop: 70,
 		height: windowHeight * 0.11,
 		width: '100%',
 		backgroundColor: utils.lightGreen,
