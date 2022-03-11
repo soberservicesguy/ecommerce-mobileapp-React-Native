@@ -34,13 +34,109 @@ class IndividualProduct extends Component {
 			product_size_options: [],
 			product_color_options: [],
 
+			price: this.props.current_product.price,
+			title: this.props.current_product.title,
+
+			product_size: '',
+			product_color: '',
+
+			carousels_list: [],
+
 		}	
 	}
 
+	get_variations(){
+
+		axios.get(utils.baseUrl + '/products/get-all-variations', 
+			{
+				params:{
+					product_size: this.props.current_product.product_size,
+					product_color: this.props.current_product.product_color,
+					title: this.props.current_product.title,
+				}
+			}
+		)
+		.then((response) => {
+
+			console.log('response.data')
+			console.log(response.data)
+
+			this.setState(
+				prev => (
+					{
+						...prev,
+						product_size_options: response.data.product_size,
+						product_color_options: response.data.product_color,
+					}
+				)
+			)
+		})
+		.catch(function (error) {
+			console.log(error);
+		});	
+
+	}
+
+
+	get_price_according_to_variations(){
+
+		axios.get(utils.baseUrl + '/products/get-price', 
+			{
+				params:{
+					product_size: this.props.current_product.product_size,
+					product_color: this.props.current_product.product_color,
+					title: this.props.current_product.title,
+				}
+			}
+		)
+		.then((response) => {
+			if (Number(response.data.price) > 0){
+
+				this.setState(prev => ({...prev, price: response.data.price,}))
+
+			}
+		})
+		.catch(function (error) {
+			console.log(error);
+		});	
+
+	}
+
+
+	get_carousel(){
+		axios.get(`${utils.baseUrl}/carousels/get-carousel`)
+	    .then(async (response) => {
+	    	if (response.data.success){
+	    		console.log({carousels_list: response.data.carousels_list})
+		    	this.setState({ carousels_list: response.data.carousels_list})
+	    	}
+		})
+		.catch((err) => {
+			console.log(err)
+		})
+
+	}
 // COMPONENT DID MOUNT
 	componentDidMount() {
 
+		this._unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+			// below will be executed when user enters this screen
+			this.get_variations()
+			this.get_carousel()
+		});
+
+		this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+			// below will be executed when user leaves this screen
+			console.log('I AM UNMOUNTED')
+
+		});
+
 // FETCHING DATA FOR COMPONENT
+	}
+
+	componentWillUnmount() {
+		this._unsubscribeFocus();
+		this._unsubscribeBlur();
 	}
 
 // RENDER METHOD
@@ -64,11 +160,49 @@ class IndividualProduct extends Component {
 
 		})
 
+		const DATA=[
+			{
+				id:'0',
+				image:utils.casualShirts
+			},
+			{
+				id:'1',
+				image:utils.makeup
+			},
+			{
+				id:'2',
+				image:utils.perfumes
+			},
+			{
+				id:'3',
+				image:utils.shirts
+			},
+			{
+				id:'4',
+				image:utils.shoes
+			},
+			{
+				id:'5',
+				image:utils.sportShoes
+			},
+			{
+				id:'6',
+				image:utils.sunglasses
+			},
+			{
+				id:'7',
+				image:utils.watch
+			},
+		];
+
+
 
 		return (
 			<View style={styles.outercContainer}>
 
-				<MyCarouselFlatListBased/>
+				<MyCarouselFlatListBased
+					itemsList={DATA}
+				/>
 
 				<View style={styles.productAndPriceContainer}>
 					<Text style={styles.productTitle}>
@@ -81,7 +215,7 @@ class IndividualProduct extends Component {
 
 				</View>
 
-				<TouchableHighlight activeOpacity={0.2} onPress={() => {}} style={styles.button}>
+				<TouchableHighlight activeOpacity={0.2} onPress={() => this.props.add_product_to_cart(this.props.current_product)} style={styles.button}>
 					<Text style={styles.innerText}>
 						ADD TO CART
 					</Text>
@@ -129,8 +263,9 @@ class IndividualProduct extends Component {
 						style={{height: 50, width:windowWidth * 0.4}}
 						onValueChange={(itemValue, itemIndex) => {
 
-							this.props.modify_product_size_of_some_item_in_cart(data.id, itemValue)
+							// this.props.modify_product_size_of_some_item_in_cart(this.props.current_product.id, itemValue)
 							this.get_variations()
+							this.get_price_according_to_variations()
 
 						}}
 					>
@@ -141,7 +276,13 @@ class IndividualProduct extends Component {
 					<Picker
 						selectedValue={this.state.privileges_selected}
 						style={{height: 50, width:windowWidth * 0.4}}
-						onValueChange={(itemValue, itemIndex) =>  this.props.modify_product_color_of_some_item_in_cart(data.id, itemValue)}
+						onValueChange={(itemValue, itemIndex) =>  {
+
+							// this.props.modify_product_color_of_some_item_in_cart(this.props.current_product.id, itemValue)
+							this.get_variations()
+							this.get_price_according_to_variations()
+							
+						}}
 					>
 						<Picker.Item label="Set Color" value={null} />
 						{product_color_menu}

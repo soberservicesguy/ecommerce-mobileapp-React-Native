@@ -8,6 +8,7 @@ import {
 	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
+import utils from "../utilities";
 
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
@@ -23,7 +24,6 @@ class BulkBlogpostUpload extends Component {
 // STATE	
 		this.state = {
 			expanded:false,
-			swtichScreen: false,
 			image_main: [],
 			excel_sheet:'',
 		}
@@ -106,18 +106,18 @@ class BulkBlogpostUpload extends Component {
 					onPress={ () => {
 
 						// let setResponseInFetchedBlogPosts = (arg) => this.props.set_fetched_blogposts(arg)
-						let redirectToNewBlogPosts = () => this.props.navigation.navigate('BlogPost', {itemId: 86, otherParam: 'anything you want here',})
+						let redirectToNewBlogPosts = () => this.props.navigation.navigate('BlogPost')
 
 						const formData = new FormData()
 						// attaching multiple files with formData
 						Array.from(this.state.image_main).forEach((file) => {
 							formData.append('blogpost_image_main', {uri: file.uri, type: file.type, name: file.name})
 						})
-						formData.append('excel_sheet_for_blogpost', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
+						formData.append('excel_sheet', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
 
 						axios.post(utils.baseUrl + '/uploads/bulk-upload-blogposts', formData)
 						.then(function (response) {
-							console.log(response.data) // current blogpost screen data
+							// console.log(response.data) // current blogpost screen data
 							
 							// set to current parent object
 							// setResponseInFetchedBlogPosts(response.data.new_blogpost)
@@ -160,18 +160,15 @@ BulkBlogpostUpload.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	container: {
+	outerContainer:{
+		flexDirection: 'column',
+		alignItems:'center',
+		flex:1,
+		// display:'flex',
+		// flexDirection: 'column',
+		alignItems:'center',
+		justifyContent: 'space-around', 
 	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
-	},
-
 });
 
 export default BulkBlogpostUpload

@@ -28,6 +28,7 @@ import utils from "../utilities";
 
 import { verify_privilege } from "../handy_functions/"
 
+import FacebookLogin from "../services/facebook_sign_in_and_share/facebook_sign_in"
 
 class LoginScreen extends Component {
 	constructor(props) {
@@ -106,6 +107,7 @@ class LoginScreen extends Component {
 							<Text style={styles.innerText}>
 								LOGIN WITH FACEBOOK
 							</Text>
+							{/*<FacebookLogin/>*/}
 						</TouchableOpacity>
 					</View>
 
@@ -179,18 +181,11 @@ class LoginScreen extends Component {
 						  name={utils.righAeroIcon}
 						  type='font-awesome'
 						  // iconStyle='Outlined'
-						  color='#ffffff'
+						  color='#eee'
 						  size={40}
 						/>
 					</TouchableOpacity>
 
-
-	{/*				<Button 
-						title={'LOGOUT'}
-						style={styles.lowerButton} activeOpacity={0.2}
-						onPress={ () => this.logout_and_remove_jwt_token() }
-					/>
-	*/}
 				</View>
 			</KeyboardAwareScrollView>
 		);
@@ -201,10 +196,10 @@ class LoginScreen extends Component {
 
 const styles = StyleSheet.create({
 	screenContainer:{
+		display:'flex',
+		flexDirection: 'column',
 		alignItems:'center',
 		flex:1,
-		// display:'flex',
-		// flexDirection: 'column',
 		alignItems:'center',
 		justifyContent: 'space-between', 
 		backgroundColor: '#ffffff',
@@ -303,6 +298,7 @@ const styles = StyleSheet.create({
 
 // bottom button
 	bottomButton:{
+		marginTop: 70,
 		height: windowHeight * 0.11,
 		width: '100%',
 		backgroundColor: utils.lightGreen,

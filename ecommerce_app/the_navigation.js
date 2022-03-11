@@ -13,20 +13,6 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
-// IMPORT created components
-// import {
-//	ButtonTouchableHighlight,
-//	ImageAtLeftTextsAtRight,
-//	Gap
-// } from './components/ready_made_components';
-
-// import NetInfo from "@react-native-community/netinfo";
-
-// import {
-// 	request_multiple_permissions,
-// } from "./handy_functions/permissions_functions"
-
-// IMPORT CONNECTED CONTAINERS
 import {
 	ConnectedSignUpOrLoginScreen,
 	ConnectedSignUpScreen,
@@ -45,6 +31,7 @@ import {
 	ConnectedBulkCarouselUpload,
 	ConnectedBulkProductUpload,
 	ConnectedBulkProductCategoriesUpload,
+	ConnectedTheDrawer,
 } from "./redux_stuff/connected_components";
 
 
@@ -70,8 +57,9 @@ function BottomTabs({navigation}) {
 					backgroundColor: '#000000',
 				}}>
 					{[
-						{option_name:'Bulk Blogposts', screen_name:"BulkBlogpostUpload"}, 
+						// {option_name:'Bulk Blogposts', screen_name:"BulkBlogpostUpload"}, 
 						{option_name:'Bulk Products',  screen_name:"BulkProductUpload"}, 
+						{option_name:'Bulk Categories',  screen_name:"BulkProductCategories"}, 
 						{option_name:'Bulk Carousels',  screen_name:"BulkCarouselUpload"}, 
 					].map((item, index) => {
 
@@ -80,7 +68,7 @@ function BottomTabs({navigation}) {
 								navigation.navigate(item.screen_name)
 								// navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
 							}}>
-								<Text style={{color:'white', fontWeight:'bold', fontSize:16, textAlign:'center'}}>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:13, textAlign:'center', paddingRight: 5}}>
 									{item.option_name}
 								</Text>
 							</TouchableOpacity>
@@ -115,7 +103,7 @@ function BottomTabs({navigation}) {
 			//   }}
 		>
 
-			<Tabs.Screen name="BulkBlogpostUpload" component={ ConnectedBulkBlogpostUpload }
+			{/*<Tabs.Screen name="BulkBlogpostUpload" component={ ConnectedBulkBlogpostUpload }
 				options={{ 
 					headerShown:true,
 					title: 'Bulk Blogposts Upload',
@@ -131,7 +119,7 @@ function BottomTabs({navigation}) {
 					</TouchableOpacity>	),
 					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
-			/>
+			/>*/}
 
 			<Tabs.Screen name="BulkCarouselUpload" component={ ConnectedBulkCarouselUpload }
 				options={{ 
@@ -205,27 +193,14 @@ function BottomTabs({navigation}) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 const Drawer = createDrawerNavigator();
 
 // component returning drawer with screens
-function TheDrawer({navigation}) {
+export function TheDrawer({ navigation, set_is_signed_in }) {
 	return (
 		<Drawer.Navigator
 			headerMode='none'
-			// initialRouteName= ''
-			// backBehavior= 'initialRoute / order / history / none'
+			backBehavior= 'history'
 			// drawerPosition= 'left / right'
 			// drawerType='front / back / slide / permanent'
 			hideStatusBar={false}
@@ -242,7 +217,7 @@ function TheDrawer({navigation}) {
 						alignItems:'center',
 						justifyContent: 'space-between', 
 					}}>
-						{['Products', 'BlogPost', 'Cart', 'BulkUploadTabs'
+						{['Products', /*'BlogPost',*/ 'Cart', 'Bulk Uploads', 'Logout'
 						// 'Video'
 						].map((option) => {
 
@@ -250,17 +225,28 @@ function TheDrawer({navigation}) {
 							option = option.toLowerCase()
 							option = option.charAt(0).toUpperCase() + option.slice(1);
 
-							if (screen_name === 'BulkUploadTabs'){
-								option = 'Bulk Upload'
+							if (screen_name === 'Bulk Uploads'){
+								option = 'Bulk Uploads'
 							}
 
-							return (
-								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
-									<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
-										{option}
-									</Text>
-								</TouchableOpacity>
-							)
+							if (option == 'Logout'){
+								return (
+									<TouchableOpacity activeOpacity={0.2} onPress={ () => set_is_signed_in(false) } style={{marginTop:50, marginBottom:50,}}>
+										<Text style={{color:'red', fontWeight:'bold', fontSize:20}}>
+											Logout
+										</Text>
+									</TouchableOpacity>
+								)
+							} else {
+
+								return (
+									<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
+										<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+											{option}
+										</Text>
+									</TouchableOpacity>
+								)
+							}
 						})}
 					</ScrollView>
 				)
@@ -273,35 +259,35 @@ function TheDrawer({navigation}) {
 					title: 'Products',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
 					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
-			<Drawer.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
+			{/*<Drawer.Screen name="BlogPost" component={ ConnectedBlogPostScreen }
 				options={{ 
 					headerShown:true,
 					title: 'Blogposts',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
 					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
-			/>
+			/>*/}
 
 			<Drawer.Screen name="Cart" component={ ConnectedCartScreen }
 				options={{ 
@@ -309,21 +295,21 @@ function TheDrawer({navigation}) {
 					title: 'Cart',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
 					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
-			<Drawer.Screen name="BulkUploadTabs" component={ BottomTabs }
+			<Drawer.Screen name="Bulk Uploads" component={ BottomTabs }
 				options={{ 
-					headerShown:false,
+					headerShown:true,
 				}}
 			/>
 
@@ -401,7 +387,7 @@ function InnerStackComponent({navigation}) {
 			// headerMode='none'
 		>
 
-			<InnerStack.Screen name="Content_Drawer" component={TheDrawer}
+			<InnerStack.Screen name="Content_Drawer" component={ConnectedTheDrawer}
 				options={{ 
 					headerShown:false,
 				}}

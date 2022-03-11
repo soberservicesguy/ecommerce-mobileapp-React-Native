@@ -72,6 +72,9 @@ class CreateBlogPost extends Component {
 				<View style={styles.outerContainer}>
 
 					<View style={styles.textinputContainer}>
+						<Text style={{textAlign: 'center', fontSize: 15, fontWeight: 'bold', paddingVertical: 10,}}>
+							Blogpost Upload Section
+						</Text>
 
 						<Button 
 							title={'Blogpost image'}
@@ -117,110 +120,127 @@ class CreateBlogPost extends Component {
 						/>
 				  	</View>
 
+				  	<View style={{
+				  		display: 'flex',
+				  		flexDirection: 'row',
+				  	}}>
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your first_para"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, first_para: value})) }
-						/>
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your first_para"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, first_para: value})) }
+							/>
+					  	</View>
+
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your initial_tags"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, initial_tags: value})) }
+							/>
+					  	</View>
+				  	</View>
+
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your second_para"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, second_para: value})) }
+							/>
+					  	</View>
+
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your third_para"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, third_para: value})) }
+							/>
+					  	</View>
 				  	</View>
 
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your initial_tags"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, initial_tags: value})) }
-						/>
-				  	</View>
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
 
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your fourth_para"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, fourth_para: value})) }
+							/>
+					  	</View>
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your second_para"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, second_para: value})) }
-						/>
-				  	</View>
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your all_tags"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, all_tags: value})) }
+							/>
+					  	</View>
 
+					</View>
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your third_para"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, third_para: value})) }
-						/>
-				  	</View>
-
-
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your fourth_para"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, fourth_para: value})) }
-						/>
-				  	</View>
-
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your all_tags"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, all_tags: value})) }
-						/>
-				  	</View>
-
-					<Button 
-						title={'Press To Create BlogPost'}
-						style={styles.buttonWithoutBG}
+					<TouchableOpacity
+						activeOpacity={0.2}
+						style={styles.bottomButton}
 						onPress={ () => {
 
 							let setResponseInCurrentBlogPost = (arg) => this.props.set_current_blogpost(arg)
@@ -252,7 +272,12 @@ class CreateBlogPost extends Component {
 							});						
 
 						}}
-					/>
+					>
+						<Text style={styles.buttonText}>
+							Press To Create BlogPost
+						</Text>
+					</TouchableOpacity>
+
 				</View>
 			);
 		}			
@@ -271,42 +296,31 @@ const styles = StyleSheet.create({
 	innerText:{
 
 	},
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
-	},
+
 	outerContainer: {
-	},
-	bigBlue: {
+		alignItems:'center',
+		// flex:1,
+		// display:'flex',
+		// flexDirection: 'column',
+		alignItems:'center',
+		justifyContent: 'space-between', 
+		backgroundColor: '#ffffff',
+		width: windowWidth
 	},
 
 
 	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
+		marginTop: windowHeight * 0.001, // or 30  gap
+		marginBottom: windowHeight * 0.001, // or 30  gap
 		height: windowHeight * 0.1, // or 100
-		width: '80%',
+		width: windowWidth * 0.45,
 		justifyContent: 'center', // vertically centered
 		alignSelf: 'center', // horizontally centered
 		// backgroundColor: utils.lightGreen,
 	},
 	textinput:{
 		marginTop:20,
-		textAlign:'left',
+		textAlign:'center',
 		borderWidth:1,
 		borderColor:(utils.lightGrey),
 		borderStyle:'solid',
@@ -315,6 +329,21 @@ const styles = StyleSheet.create({
 		paddingBottom:15,
 		fontSize:18,
 	},
+
+	// create product button
+	bottomButton:{
+		marginTop: windowHeight * 0.03,
+		width: windowWidth,
+		height: windowHeight * 0.08,
+		justifyContent: 'center',
+		alignItems:'center',
+		backgroundColor: utils.lightGreen,
+	},
+	buttonText:{
+		color:'white',
+		fontSize:20,
+		fontWeight: 'bold',
+	}
 });
 
 export default CreateBlogPost

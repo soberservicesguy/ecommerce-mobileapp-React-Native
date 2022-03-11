@@ -16,6 +16,7 @@ const windowHeight = Dimensions.get('window').height;
 import axios from 'axios';
 
 import DocumentPicker from 'react-native-document-picker';
+import utils from "../utilities"
 
 class BulkProductUpload extends Component {
 	constructor(props) {
@@ -110,8 +111,8 @@ class BulkProductUpload extends Component {
 						Array.from(this.state.image_main).forEach((file) => {
 							formData.append('product_images_upload', {uri: file.uri, type: file.type, name: file.name})
 						})
-						formData.append('excel_sheet_for_products', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
-
+						formData.append('excel_sheet', {uri: this.state.excel_sheet.uri, type: this.state.excel_sheet.type, name: this.state.excel_sheet.name})
+						console.log({url: utils.baseUrl + '/uploads/bulk-upload-products'})
 						axios.post(utils.baseUrl + '/uploads/bulk-upload-products', formData)
 						.then(function (response) {
 							console.log(response.data) // current blogpost screen data
@@ -157,18 +158,15 @@ BulkProductUpload.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	container: {
+	outerContainer:{
+		flexDirection: 'column',
+		alignItems:'center',
+		flex:1,
+		// display:'flex',
+		// flexDirection: 'column',
+		alignItems:'center',
+		justifyContent: 'space-around', 
 	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
-	},
-
 });
 
 export default BulkProductUpload

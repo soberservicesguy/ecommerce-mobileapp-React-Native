@@ -29,42 +29,39 @@ const bulletsData={
 
 const DATA=[
 	{
+		id:'0',
+		image:utils.casualShirts
+	},
+	{
 		id:'1',
-		image:utils.image
+		image:utils.makeup
 	},
 	{
 		id:'2',
-		image:utils.image
+		image:utils.perfumes
 	},
 	{
 		id:'3',
-		image:utils.image
+		image:utils.shirts
 	},
 	{
 		id:'4',
-		image:utils.image
+		image:utils.shoes
 	},
 	{
 		id:'5',
-		image:utils.image
+		image:utils.sportShoes
 	},
 	{
 		id:'6',
-		image:utils.image
+		image:utils.sunglasses
 	},
 	{
 		id:'7',
-		image:utils.image
-	},
-	{
-		id:'8',
-		image:utils.image
-	},
-	{
-		id:'9',
-		image:utils.image
+		image:utils.watch
 	},
 ];
+
 
 const bulletsHorizontalStartSetter = () => {return(
 	windowWidth/2	

@@ -16,6 +16,7 @@ const windowHeight = Dimensions.get('window').height;
 import axios from 'axios';
 
 import DocumentPicker from 'react-native-document-picker';
+import utils from "../utilities";
 
 class BulkCarouselUpload extends Component {
 	constructor(props) {
@@ -106,14 +107,14 @@ class BulkCarouselUpload extends Component {
 					onPress={ () => {
 
 						// let setResponseInFetchedBlogPosts = (arg) => this.props.set_fetched_blogposts(arg)
-						let redirectToNewBlogPosts = () => this.props.navigation.navigate('Carousels', {itemId: 86, otherParam: 'anything you want here',})
+						let redirectToNewCarousels = () => this.props.navigation.navigate('Products', {itemId: 86, otherParam: 'anything you want here',})
 
 						const formData = new FormData()
 						// attaching multiple files with formData
 						Array.from(this.state.image_main).forEach((file) => {
 							formData.append('carousel_image_main', {uri: file.uri, name: file.name, type: file.type})
 						})
-						formData.append('excel_sheet_for_carousel', {uri: this.state.excel_sheet.uri, name: this.state.excel_sheet.name, type: this.state.excel_sheet.type})
+						formData.append('excel_sheet', {uri: this.state.excel_sheet.uri, name: this.state.excel_sheet.name, type: this.state.excel_sheet.type})
 
 						axios.post(utils.baseUrl + '/uploads/bulk-upload-carousels', formData)
 						.then(function (response) {
@@ -123,7 +124,7 @@ class BulkCarouselUpload extends Component {
 							// setResponseInFetchedBlogPosts(response.data.new_blogpost)
 
 							// change route to current_blogpost
-							redirectToNewBlogPosts()
+							redirectToNewCarousels()
 
 						})
 						.catch(function (error) {
@@ -160,18 +161,15 @@ BulkCarouselUpload.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	container: {
+	outerContainer:{
+		flexDirection: 'column',
+		alignItems:'center',
+		flex:1,
+		// display:'flex',
+		// flexDirection: 'column',
+		alignItems:'center',
+		justifyContent: 'space-around', 
 	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
-	},
-
 });
 
 export default BulkCarouselUpload
